@@ -1,5 +1,6 @@
 package com.rodvels.crud.api.service;
 
+import com.rodvels.crud.api.dto.ContactDTO;
 import com.rodvels.crud.api.entity.Contact;
 import com.rodvels.crud.api.repository.ContactRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,15 +22,17 @@ public class ContactService {
         return contactRepository.findById(id).orElse(null);
     }
 
-    public Contact create(Contact contact) {
-
+    public Contact create(ContactDTO contactDTO) {
+        Contact contact = new Contact();
+        contact.setName(contactDTO.getName());
+        contact.setEmail(contactDTO.getEmail());
         contact.setCreated_At(LocalDateTime.now());
         return contactRepository.save(contact);
     }
-    public Contact update(Integer  id, Contact contact) {
+    public Contact update(Integer  id, ContactDTO contactDTO) {
         return contactRepository.findById(id).map(contactExist ->{
-            contactExist.setName(contact.getName());
-            contactExist.setEmail(contact.getEmail());
+            contactExist.setName(contactDTO.getName());
+            contactExist.setEmail(contactDTO.getEmail());
             return  contactRepository.save(contactExist);
         }).orElse(null);
     }

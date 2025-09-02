@@ -1,5 +1,6 @@
 package com.rodvels.crud.api.controller;
 
+import com.rodvels.crud.api.dto.ContactDTO;
 import com.rodvels.crud.api.entity.Contact;
 import com.rodvels.crud.api.service.ContactService;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +30,13 @@ public class ContactController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contact create(@RequestBody Contact contact) {
-        return contactService.create(contact);
+    public Contact create(@RequestBody ContactDTO contactDTO) {
+        return contactService.create(contactDTO);
     }
 
     @PutMapping({"{id}"})
-    public Contact update(@PathVariable Integer id , @RequestBody Contact contact) {
-        return contactService.update(id,contact);
+    public Contact update(@PathVariable Integer id , @RequestBody ContactDTO contactDTO) {
+        return contactService.update(id,contactDTO);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
