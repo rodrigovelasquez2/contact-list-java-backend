@@ -17,12 +17,10 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     @NonNull
     private String name;
     @NonNull
     private String email;
     @NonNull
     private LocalDateTime created_At;
-
 }
