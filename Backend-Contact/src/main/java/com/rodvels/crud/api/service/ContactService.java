@@ -2,6 +2,7 @@ package com.rodvels.crud.api.service;
 
 import com.rodvels.crud.api.dto.ContactDTO;
 import com.rodvels.crud.api.entity.Contact;
+import com.rodvels.crud.api.exception.ResourceNotFoundException;
 import com.rodvels.crud.api.repository.ContactRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,7 +22,7 @@ public class ContactService {
     }
 
     public Contact findById(Integer id) {
-        return contactRepository.findById(id).orElse(null);
+        return contactRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
     public Contact create(ContactDTO contactDTO) {

@@ -6,6 +6,7 @@ import com.rodvels.crud.api.service.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -30,12 +31,12 @@ public class ContactController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contact create(@RequestBody ContactDTO contactDTO) {
+    public Contact create(@Validated @RequestBody ContactDTO contactDTO) {
         return contactService.create(contactDTO);
     }
 
     @PutMapping({"{id}"})
-    public Contact update(@PathVariable Integer id , @RequestBody ContactDTO contactDTO) {
+    public Contact update(@PathVariable Integer id , @Validated @RequestBody ContactDTO contactDTO) {
         return contactService.update(id,contactDTO);
     }
 
