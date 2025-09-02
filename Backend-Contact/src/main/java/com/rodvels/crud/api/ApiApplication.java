@@ -2,6 +2,7 @@ package com.rodvels.crud.api;
 
 import com.rodvels.crud.api.entity.Contact;
 import com.rodvels.crud.api.repository.ContactRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,4 +31,10 @@ public class ApiApplication {
 				contactRepository.saveAll(contacts);
 		};
 	}
+
+	@Bean
+	ModelMapper modelMapper  (){
+		return new ModelMapper();
+	}
+
 }

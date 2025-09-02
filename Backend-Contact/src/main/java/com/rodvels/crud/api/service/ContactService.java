@@ -4,6 +4,7 @@ import com.rodvels.crud.api.dto.ContactDTO;
 import com.rodvels.crud.api.entity.Contact;
 import com.rodvels.crud.api.repository.ContactRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Service
 public class ContactService {
     private final ContactRepository contactRepository;
+    private final ModelMapper modelMapper;
 
     public Iterable<Contact> findAll() {
         return contactRepository.findAll();
@@ -23,16 +25,13 @@ public class ContactService {
     }
 
     public Contact create(ContactDTO contactDTO) {
-        Contact contact = new Contact();
-        contact.setName(contactDTO.getName());
-        contact.setEmail(contactDTO.getEmail());
+        Contact contact =  modelMapper.map(contactDTO, Contact.class);
         contact.setCreated_At(LocalDateTime.now());
         return contactRepository.save(contact);
     }
     public Contact update(Integer  id, ContactDTO contactDTO) {
         return contactRepository.findById(id).map(contactExist ->{
-            contactExist.setName(contactDTO.getName());
-            contactExist.setEmail(contactDTO.getEmail());
+            modelMapper.map(contactDTO, contactExist);
             return  contactRepository.save(contactExist);
         }).orElse(null);
     }
